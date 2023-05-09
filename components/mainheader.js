@@ -1,11 +1,14 @@
-
-export default function Header() {
+import Image from "next/image";
+import ClientSpace from "./clientspace";
+export default function MainHeader() {
   return (
-    <header aria-label="Page Header" className="bg-white broder-b border-gray-100 shadow-sm sticky top-0">
+    <header aria-label="Page Header" className="bg-white broder-b border-gray-100 shadow-sm sticky top-0 z-40">
     <div className="mx-auto max-w-screen-xl px-2 py-3.5 sm:px-6 lg:px-6">
       <div className="flex items-center sm:justify-between sm:gap-4">
 
-
+      <div className="relative sm:block">
+          <ClientSpace />
+        </div>
         <div className="flex flex-1 items-center justify-between gap-8 sm:justify-end">
           <div className="flex gap-4">
             <a
