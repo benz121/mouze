@@ -71,7 +71,7 @@ export async function handelcollections(req) {
   if (req.method === 'GET') {
     try {
       const db = await connectToDatabase();
-      const collection = db.collection('basic');
+      const collection = db.collection('ss');
       const collections = await collection.find({}).toArray();
       return collections;
     } catch (error) {

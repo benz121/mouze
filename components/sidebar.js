@@ -6,8 +6,8 @@ export default function SidebarNav(){
     <div className="inline-flex h-16 w-16 p-1 mx-1 items-center justify-center">
           <a
             className="pointer-events-none flex place-items-center lg:pointer-events-auto lg:p-0"
-            href="/"
-            target="_blank"
+            href="/dashboard"
+            // target="_blank"
             rel="noopener noreferrer"
           >
             <Image
@@ -25,7 +25,7 @@ export default function SidebarNav(){
       <nav aria-label="Main Nav" className="flex flex-col p-2">
         <div className="py-4">
           <a
-            href=""
+            href="/dashboard/upload"
             className="t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700"
           >
             <svg
