@@ -1,38 +1,37 @@
 "use client";
-import { useState } from 'react';
-import crypto from 'crypto';
+import { useState, useEffect } from 'react';
+import { Container, Paper, Typography } from '@mui/material';
+import mammoth from 'mammoth';
 
-export default function Hash() {
-  const [fileHash, setFileHash] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
+const DocumentViewer = () => {
+  const [documentContent, setDocumentContent] = useState(null);
 
-  function handleFileChange(event) {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  }
-
-  function handleHashFile() {
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const fileData = reader.result;
-        const hash = crypto.createHash('sha1');
-        // 92b404e556588ced6c1acd4ebf053f6809f73a93
-        // 92b404e556588ced6c1acd4ebf053f6809f73a93
-        hash.update(fileData);
-        console.log(hash);
-        const fileHash = hash.digest('hex');
-        setFileHash(fileHash);
-      };
-      reader.readAsArrayBuffer(selectedFile);
+  const loadDocument = async () => {
+    try {
+      const response = await fetch("C:\Users\UDAY_BENZ\Downloads\file-sample_1MB.docx"); // Replace with the actual path to your .docx file on the server
+      const arrayBuffer = await response.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      setDocumentContent(result.value);
+    } catch (error) {
+      console.error('Error loading document:', error);
     }
-  }
+  };
+
+  useEffect(() => {
+    loadDocument();
+  }, []);
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleHashFile}>Hash File</button>
-      {fileHash && <p>File hash: {fileHash}</p>}
-    </div>
+    <Container maxWidth="md">
+      <Paper elevation={3} style={{ padding: '2rem' }}>
+        {documentContent ? (
+          <Typography variant="body1">{documentContent}</Typography>
+        ) : (
+          <Typography variant="body1">Loading document...</Typography>
+        )}
+      </Paper>
+    </Container>
   );
-}
+};
+
+export default DocumentViewer;

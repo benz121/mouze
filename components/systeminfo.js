@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -9,9 +9,7 @@ import Button from '@mui/material/Button';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
 import Image from 'next/image';
-import { DataContext } from './DataContext';
 import { winlogos } from "./logos";
-import { DataGrid } from '@mui/x-data-grid';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,8 +80,8 @@ const renderValue = (value) => {
       <tbody>
         {infoData.map(({ key, value }) => (
           <tr key={key} className='font-sans'>
-            <td className='w-2/6'><span class="text-sm font-bold opacity-60">{key}</span></td>
-            <td className='w-4/6'><span class="text-xs break-words opacity-80">{value}</span></td>
+            <td className='w-2/6'><span className="text-sm font-bold opacity-60">{key}</span></td>
+            <td className='w-4/6'><span className="text-xs break-words opacity-80">{value}</span></td>
           </tr>
         ))}
       </tbody>
@@ -97,9 +95,8 @@ const ipcols = [
   { field: 'name', headerName: 'UserName', width: 130 },
 ]
 
-export default function SystemInfo() {
-  const [value, setValue] = React.useState(0);
-  const { data } = useContext(DataContext);
+export default function SystemInfo({data}) {
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

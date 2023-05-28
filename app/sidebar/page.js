@@ -17,9 +17,8 @@ import TableRow from '@mui/material/TableRow';
 import Chip from '@mui/material/Chip';
 import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
 import CancelIcon from '@mui/icons-material/Cancel';
-import SystemInfo from './systeminfo';
-import {StatusLoading, TabledataLoading} from './loading';
-import SystemInfoLoading from './loading';
+import SystemInfo from '../../components/systeminfo';
+import SystemInfoLoading from '../hash/page';
 const csvOptions = { delimiter: ',', fileName: 'Collections' };
 
 function CustomExportButton(props) {
@@ -101,14 +100,14 @@ export default function Home() {
         }
     };
     return (
-        <div className='flex p-2 m-4'>
+        <div style={{ display: 'flex'}}>
         {/* datagrid */}
         <div className='p-2 w-3/5'>
 
             <div className='mt-6 mb-2'>
             {loading ? (
                 // Show skeleton loading effect while data is being fetched
-                <TabledataLoading />
+                <Skeleton variant="rectangular" height={400} animation="wave" />
             ) : (
                 // Render DataGrid table with fetched data
                 <DataGrid
@@ -145,7 +144,7 @@ export default function Home() {
             {/* status */}
             <div className='status'>
             {loading ? (
-            <StatusLoading />
+                <Skeleton variant="text" animation="wave" />
             ) : (
                 <div className='border-0 border-blue-700 mt-4'>
                 {detailsRow && (
@@ -181,16 +180,21 @@ export default function Home() {
         </div>
       
         {/* details */}
-        <div className="flex-1 p-2 h-[calc(100vh-150px)] w-2/5 border rounded-md border-gray-200">
+        <div className="flex-1 p-2 h-[calc(100vh-150px)] w-2/5 ">
           {loading ? (
-            <SystemInfoLoading />
-            // <Skeleton variant="rectangular" height={100} animation="wave" />
+            // <SystemInfoLoading />
+            <Skeleton variant="rectangular" height={100} animation="wave" />
+
           ) : (
-              detailsRow ? (
+            <div className="border rounded-md border-gray-200">
+              {detailsRow ? (
                 <SystemInfo data={detailsRow} />
               ) : (
+                <div className='flex items-center justify-center h-full'>
                   <span className='text-gray-500'>No row selected</span>
-              )
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>
